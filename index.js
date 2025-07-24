@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 const app = express()
 app.use(express.json())
 
-const TOKEN = 'BOT_TOKEN'
+const TOKEN = '7966335291:AAGI575FIrbqhylmE3CvPRYs-QwvXy-vlF8'
 const API_URL = `https://api.telegram.org/bot${TOKEN}`
 
 const notifyJoin = true
@@ -77,10 +77,10 @@ app.post('/', async (req, res) => {
       const botInfo = await (await fetch(`${API_URL}/getMe`)).json()
       const botUsername = botInfo.result.username
       const user = msg.from
-      await sendMessage(chat_id, `👋 Welcome, <b>${user.first_name || ''}</b>!  
-Use me to get group member join or leave notification 😎`, message_id, {
+      await sendMessage(chat_id, `👋 Hey There, <b>${user.first_name || ''}</b>!  
+I send you a msg when a user join or leave you channel or group 😎`, message_id, {
         inline_keyboard: [
-          [{ text: '➕ Add to Group', url: `https://t.me/${botUsername}?startgroup=true` }]
+          [{ text: '➕ Add To Admin List', url: `https://t.me/${botUsername}?startgroup=true` }]
         ]
       })
     }
@@ -105,27 +105,27 @@ Use me to get group member join or leave notification 😎`, message_id, {
       await notifyAdmins(chat.id, `
 ✅ <b>User Joined</b>
 
-👤 <b>Name:</b> ${user.first_name || ''} ${user.last_name || ''}
-🔗 <b>Username:</b> @${user.username || 'N/A'}
-🆔 <b>User ID:</b> <code>${user.id}</code>
+ <b>Name:</b> ${user.first_name || ''} ${user.last_name || ''}
+ <b>Username:</b> @${user.username || 'N/A'}
+ <b>User ID:</b> <code>${user.id}</code>
 
-📢 <b>Group:</b> ${chat.title}
-🆔 <b>Chat ID:</b> <code>${chat.id}</code>
-👥 <b>Total Members:</b> ${memberCount}
+ <b>Chat:</b> ${chat.title}
+ <b>Chat ID:</b> <code>${chat.id}</code>
+ <b>Total Members:</b> ${memberCount}
       `.trim())
     }
 
     if (notifyLeave && oldStatus === 'member' && newStatus === 'left' && isSelf) {
       await notifyAdmins(chat.id, `
-🚪 <b>User Left</b>
+💔 <b>User Left</b>
 
-👤 <b>Name:</b> ${user.first_name || ''} ${user.last_name || ''}
-🔗 <b>Username:</b> @${user.username || 'N/A'}
-🆔 <b>User ID:</b> <code>${user.id}</code>
+<b>Name:</b> ${user.first_name || ''} ${user.last_name || ''}
+<b>Username:</b> @${user.username || 'N/A'}
+<b>User ID:</b> <code>${user.id}</code>
 
-📢 <b>Group:</b> ${chat.title}
-🆔 <b>Chat ID:</b> <code>${chat.id}</code>
-👥 <b>Total Members:</b> ${memberCount}
+<b>Chat:</b> ${chat.title}
+<b>Chat ID:</b> <code>${chat.id}</code>
+<b>Total Members:</b> ${memberCount}
       `.trim())
     }
 
@@ -133,17 +133,17 @@ Use me to get group member join or leave notification 😎`, message_id, {
       await notifyAdmins(chat.id, `
 ❌ <b>User Removed</b>
 
-👤 <b>Removed User:</b> ${user.first_name || ''} ${user.last_name || ''}
-🔗 <b>Username:</b> @${user.username || 'N/A'}
-🆔 <b>User ID:</b> <code>${user.id}</code>
+<b>Removed User:</b> ${user.first_name || ''} ${user.last_name || ''}
+<b>Username:</b> @${user.username || 'N/A'}
+<b>User ID:</b> <code>${user.id}</code>
 
-🛡️ <b>Removed By:</b> ${performedBy.first_name || ''} ${performedBy.last_name || ''}
-🔗 <b>Username:</b> @${performedBy.username || 'N/A'}
-🆔 <b>Admin ID:</b> <code>${performedBy.id}</code>
+<b>Removed By:</b> ${performedBy.first_name || ''} ${performedBy.last_name || ''}
+<b>Username:</b> @${performedBy.username || 'N/A'}
+<b>Admin ID:</b> <code>${performedBy.id}</code>
 
-📢 <b>Group:</b> ${chat.title}
-🆔 <b>Chat ID:</b> <code>${chat.id}</code>
-👥 <b>Total Members:</b> ${memberCount}
+<b>Chat:</b> ${chat.title}
+<b>Chat ID:</b> <code>${chat.id}</code>
+<b>Total Members:</b> ${memberCount}
       `.trim())
     }
   }
